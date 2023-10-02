@@ -31,11 +31,11 @@ target_metadata = [
 ]
 # config.set_main_option("sqlalchemy.url", "sqlite:///./tutorial.db")
 
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
-# config.set_main_option(
-#     "sqlalchemy.url",
-#     f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB_NAME}",
-# )
+# config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+config.set_main_option(
+    "sqlalchemy.url",
+    f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB_NAME}",
+)
 
 # debug hardcoded
 # config.set_main_option(
