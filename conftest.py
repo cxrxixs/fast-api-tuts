@@ -24,6 +24,9 @@ DATABASE_URL = settings.DATABASE_URL
 def db_session():
     # debug
     print("DATABASE_URL*****", settings.DATABASE_URL)
+    print("password", settings.POSTGRES_PASSWORD)
+    print("user", settings.POSTGRES_USER)
+    print("db_name", settings.POSTGRES_DB_NAME)
 
     engine = create_engine(DATABASE_URL)
 
