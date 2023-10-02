@@ -22,6 +22,9 @@ DATABASE_URL = settings.DATABASE_URL
 # SQLAlchemy engine for the test database
 @pytest.fixture(scope="function")
 def db_session():
+    # debug
+    print("DATABASE_URL*****", settings.DATABASE_URL)
+
     engine = create_engine(DATABASE_URL)
 
     # Establish a database connection
