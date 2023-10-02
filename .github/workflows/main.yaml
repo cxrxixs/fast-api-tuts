@@ -15,7 +15,7 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_DB: fast_api_demo_test
+          POSTGRES_DB: fast_api_demo
           POSTGRES_PASSWORD: postgres
           POSTGRES_PORT: 5432
           POSTGRES_HOST: postgres
@@ -27,12 +27,6 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Debug postgresql service
-        run: |
-          echo "****ENVARS******"
-          env
-
-
       - name: Checkout project code
         uses: actions/checkout@v2
 
