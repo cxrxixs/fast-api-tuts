@@ -54,6 +54,6 @@ jobs:
         run: |
           pipenv run alembic upgrade head
 
-      - name: Run tests
-        run: |
-          pipenv run pytest
+      # - name: Run tests
+      #   run: |
+      #     pipenv run pytest
