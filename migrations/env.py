@@ -19,7 +19,8 @@ if config.config_file_name is not None:
 # target_metadata = None
 
 from blog import models as blog_model  # pyright: ignore
-from database import SQLALCHEMY_DATABASE_URL, metadata
+from config import settings
+from database import metadata
 from user import models as user_model  # pyright: ignore
 
 # blog_model = blog_model
@@ -30,7 +31,7 @@ target_metadata = [
 ]
 # config.set_main_option("sqlalchemy.url", "sqlite:///./tutorial.db")
 
-config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 # debug hardcoded
 # config.set_main_option(
