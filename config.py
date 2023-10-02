@@ -27,7 +27,7 @@ class Settings:
     POSTGRES_USER: str = env("POSTGRES_USER", "postgres")
     POSTGRES_PASSWORD: str = env("POSTGRES_PASSWORD", "postgres")
     POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "")
-    POSTGRES_PORT: int = env.int("POSTGRES_PORT", 5432)
+    POSTGRES_PORT: str = env("POSTGRES_PORT", "5432")
     POSTGRES_DB_NAME: str = env("POSTGRES_DB_NAME", "postgres")
     DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB_NAME}"
     SQLALCHEMY_ECHO: bool = env.bool("SQLALCHEMY_ECHO", False)
