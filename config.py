@@ -8,8 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent
 
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
-load_dotenv(dotenv_path=dotenv_file)
-
+if os.path.isfile(dotenv_file):
+    load_dotenv(dotenv_path=dotenv_file)
 
 env = Env()
 env.read_env()
