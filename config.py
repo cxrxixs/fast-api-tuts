@@ -51,7 +51,7 @@ else:
         POSTGRES_PORT: str = os.getenv("POSTGRES_PORT", "5432")
         POSTGRES_DB_NAME: str = os.getenv("POSTGRES_DB_NAME", "fast_api_demo_test")
         DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB_NAME}"
-        SQLALCHEMY_ECHO: bool = True
+        SQLALCHEMY_ECHO: bool = False
 
 
 settings = Settings()

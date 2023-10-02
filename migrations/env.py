@@ -20,7 +20,7 @@ if config.config_file_name is not None:
 
 from blog import models as blog_model  # pyright: ignore
 from config import settings
-from database import metadata
+from database import SQLALCHEMY_DATABASE_URL, metadata
 from user import models as user_model  # pyright: ignore
 
 # blog_model = blog_model
@@ -31,16 +31,7 @@ target_metadata = [
 ]
 # config.set_main_option("sqlalchemy.url", "sqlite:///./tutorial.db")
 
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
-# config.set_main_option(
-#     "sqlalchemy.url",
-#     f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB_NAME}",
-# )
-
-# debug hardcoded
-# config.set_main_option(
-#     "sqlalchemy.url", "postgresql://postgres:postgres@localhost/fast_api_demo_test"
-# )
+config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
 
 
 # other values from the config, defined by the needs of env.py,
