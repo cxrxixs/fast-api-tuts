@@ -34,7 +34,7 @@ target_metadata = [
 
 # debug hardcoded
 config.set_main_option(
-    "sqlalchemy.url", "postgresql://postgres:postgres@localhost/fast_api_demo"
+    "sqlalchemy.url", "postgresql://postgres:postgres@localhost/fast_api_demo_test"
 )
 
 
