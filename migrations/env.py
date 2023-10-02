@@ -33,9 +33,9 @@ target_metadata = [
 config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
 
 # debug hardcoded
-config.set_main_option(
-    "sqlalchemy.url", "postgresql://postgres:postgres@localhost/fast_api_demo"
-)
+# config.set_main_option(
+#     "sqlalchemy.url", "postgresql://postgres:postgres@localhost/fast_api_demo"
+# )
 
 
 # other values from the config, defined by the needs of env.py,
