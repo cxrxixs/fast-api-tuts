@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 from fastapi.encoders import jsonable_encoder
-from psycopg2.errors import UniqueViolation
+from psycopg2.errors import ForeignKeyViolation, UniqueViolation
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -29,6 +29,11 @@ def create_blog(db: Session, blog: schemas.BlogCreate, author_id: int) -> models
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Blog entry already exists",
+            )
+        elif isinstance(err.orig, ForeignKeyViolation):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid user",
             )
         else:
             print(err)

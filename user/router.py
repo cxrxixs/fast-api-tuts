@@ -20,6 +20,10 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 @router.get("/", response_model=list[schemas.User])
 def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
+    # debug
+    print("USER*******")
+    print(users)
+
     if not users:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
@@ -27,8 +31,8 @@ def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return users
 
 
-@router.post("/", response_model=schemas.UserBase)
+@router.post("/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    new_user = crud.create_urser(db, user)
+    new_user = crud.create_user(db, user)
 
     return new_user

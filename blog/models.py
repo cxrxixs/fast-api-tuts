@@ -11,9 +11,11 @@ class Blog(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(100), unique=True, index=True)
     body = Column(String)
-    created_at = Column(DateTime, server_default=func.as_utc())
+    created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(
-        DateTime, server_default=func.as_utc(), onupdate=datetime.utcnow
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
     )
     author_id = Column(Integer, ForeignKey("users.id"))
     author = relationship("User", back_populates="blogs")
