@@ -1,8 +1,6 @@
 from logging.config import fileConfig
 
 from alembic import context
-from config import settings
-# from conftest import DATABASE_URL
 from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides
@@ -21,7 +19,7 @@ if config.config_file_name is not None:
 # target_metadata = None
 
 from blog import models as blog_model  # pyright: ignore
-from database import metadata
+from database import SQLALCHEMY_DATABASE_URL, metadata
 from user import models as user_model  # pyright: ignore
 
 # blog_model = blog_model
@@ -32,7 +30,7 @@ target_metadata = [
 ]
 # config.set_main_option("sqlalchemy.url", "sqlite:///./tutorial.db")
 
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
