@@ -1,6 +1,6 @@
 import pytest
-from dotenv import load_dotenv
 from fastapi.testclient import TestClient
+from pytest_factoryboy import register
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
@@ -8,21 +8,19 @@ from starlette.testclient import TestClient
 from config import settings
 from database import Base
 from main import app
-from user import models, schemas
+from user import models
+from user.tests.factories import UserFactory
 
-# load_dotenv(".env.test")
+# region Register factory
+register(UserFactory)
 
-
-# Define your test database URL
-# DATABASE_URL = f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/fast_api_demo_test"
-
-DATABASE_URL = settings.DATABASE_URL
+# endregion
 
 
 # SQLAlchemy engine for the test database
 @pytest.fixture(scope="function")
 def db_session():
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine(settings.DATABASE_URL)
 
     # Establish a database connection
     connection = engine.connect()

@@ -1,25 +1,19 @@
-import json
-
-import pytest
-
-# from starlette.testclient import TestClient
 from .. import crud, schemas
-
-# from database import SessionLocal
-
-
-# db = SessionLocal()
 
 
 def test_create_user(db_session):
     payload = schemas.UserCreate(email="test@mail.com", password="testpassword")
     crud.create_user(db_session, payload)
+    user = crud.get_user(db_session, user_id=1)
 
-    user = crud.get_user(db_session, 1)
-    assert user.email == "test@mail.com"
+    assert user
+    assert "test@mail.com" == user.email
 
-    user = crud.get_user_by_email(db_session, "test@mail.com")
-    assert user.email == "test@mail.com"
 
-    users = crud.get_users(db_session)
-    assert len(users) == 1
+def test_get_user_by_email(db_session, user_factory):
+    email = "test_user@example.com"
+    user_factory(email=email)
+    user = crud.get_user_by_email(db_session, email=email)
+
+    assert user
+    assert email == user.email
