@@ -5,9 +5,9 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
+    # strategy:
+    #   matrix:
+    #     python-version: ["3.11"]
 
     services:
       postgres:
@@ -32,7 +32,8 @@ jobs:
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          # python-version: ${{ matrix.python-version }}
+          python-version: 3.11.5
 
       - name: Install pipenv
         run: |
@@ -55,4 +56,4 @@ jobs:
 
       - name: Run tests
         run: |
-          pipenv run pytest
+          pipenv run pytest -v
