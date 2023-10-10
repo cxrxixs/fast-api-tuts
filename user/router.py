@@ -50,5 +50,4 @@ def update_user(
             detail=f"User with id: {user_id} not found",
         )
 
-    # Added comment to test pre-commit
     return updated_user

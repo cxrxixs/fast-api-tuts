@@ -1,5 +1,4 @@
 import pytest
-from fastapi.testclient import TestClient
 from pytest_factoryboy import register
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

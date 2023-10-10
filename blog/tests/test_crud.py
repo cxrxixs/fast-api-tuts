@@ -1,8 +1,6 @@
 import pytest
 from fastapi import HTTPException
-from psycopg2.errors import (ForeignKeyViolation, RestrictViolation,
-                             UniqueViolation)
-from pytest import Session
+from psycopg2.errors import RestrictViolation, UniqueViolation
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 

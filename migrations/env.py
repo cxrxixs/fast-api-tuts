@@ -1,7 +1,10 @@
 from logging.config import fileConfig
 
 from alembic import context
+from blog import models as blog_model  # noqa  # pyright:ignore
+from database import SQLALCHEMY_DATABASE_URL, metadata
 from sqlalchemy import engine_from_config, pool
+from user import models as user_model  # noqa  # pyright:ignore
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,13 +21,6 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 # target_metadata = None
 
-from blog import models as blog_model  # pyright: ignore
-from config import settings
-from database import SQLALCHEMY_DATABASE_URL, metadata
-from user import models as user_model  # pyright: ignore
-
-# blog_model = blog_model
-# user_model = user_model
 
 target_metadata = [
     metadata,

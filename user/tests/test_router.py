@@ -43,7 +43,7 @@ class TestRouter:
 
         response_json = response.json()
         assert response_json["email"] == new_user["email"]
-        assert response_json["is_active"] == True
+        assert response_json["is_active"]
 
         user = crud.get_user_by_email(db_session, email=new_user["email"])
         assert user
@@ -107,7 +107,7 @@ class TestRouter:
         if user_count == 1:
             user_factory()
 
-        response = test_client.get(f"api/user/")
+        response = test_client.get("api/user/")
         assert response.status_code == status_code
 
     @pytest.mark.parametrize(

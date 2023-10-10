@@ -1,6 +1,5 @@
 import pytest
 from psycopg2.errors import RestrictViolation, UniqueViolation
-from pytest import Session
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 

@@ -1,10 +1,7 @@
 import pytest
-from blog import crud
 from sqlalchemy.orm import Session
 from starlette.testclient import TestClient
 from user.models import User
-
-from ..models import Blog
 
 
 class TestRouter:

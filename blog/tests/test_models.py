@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from .. import crud, schemas
+from .. import crud
 
 
 def test_create_blog(db_session: Session, blog_factory):
