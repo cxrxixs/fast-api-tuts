@@ -17,3 +17,11 @@ def test_get_user_by_email(db_session, user_factory):
 
     assert user
     assert email == user.email
+
+
+def test_model_repr(db_session, user_factory):
+    user_factory()
+    user = crud.get_user(db_session, user_id=1)
+
+    assert user
+    assert isinstance(repr(user), str)

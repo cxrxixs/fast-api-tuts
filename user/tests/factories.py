@@ -1,6 +1,5 @@
 import factory
 from database import SessionLocal
-from pytest_factoryboy import register
 
 from ..models import User
 

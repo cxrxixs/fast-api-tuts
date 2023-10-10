@@ -4,7 +4,7 @@ from starlette.testclient import TestClient
 from user import crud
 
 
-class TestRoutes:
+class TestRouter:
     def test_ping(self, test_client: TestClient):
         """Test `index` endpoint
 
@@ -26,13 +26,13 @@ class TestRoutes:
         response = test_client.get("/")
         assert "Welcome to fastAPI Tutorial" in response.text
 
-    @pytest.mark.skip(reason="Test skipping the test")
+    @pytest.mark.skip(reason="This is how to skip a test")
     def test_blog(self, test_client: TestClient):
         """Test `blog` endpoint"""
         response = test_client.get("/blog")
         assert response.status_code == 200
 
-    def test_add_user(self, test_client: TestClient, db_session: Session):
+    def test_create_user(self, test_client: TestClient, db_session: Session):
         new_user = {
             "email": "added_user@test.com",
             "password": "testpassword",
@@ -49,7 +49,7 @@ class TestRoutes:
         assert user
         assert new_user["email"] == user.email
 
-    def test_add_existing_user(
+    def test_create_existing_user(
         self,
         test_client: TestClient,
         db_session: Session,
@@ -69,3 +69,65 @@ class TestRoutes:
         user = crud.get_user_by_email(db_session, email=new_user["email"])
         assert user
         assert new_user["email"] == user.email
+
+    @pytest.mark.parametrize(
+        "user_id, status_code",
+        [
+            (1, 200),
+            (99, 404),
+        ],
+    )
+    def test_read_user(
+        self,
+        test_client: TestClient,
+        db_session: Session,  # pyright:ignore
+        user_factory,
+        user_id,
+        status_code,
+    ):
+        user_factory()
+        response = test_client.get(f"api/user/{user_id}")
+        assert response.status_code == status_code
+
+    @pytest.mark.parametrize(
+        "user_count, status_code",
+        [
+            (1, 200),
+            (0, 404),
+        ],
+    )
+    def test_read_users(
+        self,
+        test_client: TestClient,
+        db_session: Session,  # pyright:ignore
+        user_factory,
+        user_count,
+        status_code,
+    ):
+        if user_count == 1:
+            user_factory()
+
+        response = test_client.get(f"api/user/")
+        assert response.status_code == status_code
+
+    @pytest.mark.parametrize(
+        "user_id, status_code",
+        [
+            (1, 200),
+            (999, 404),
+        ],
+    )
+    def test_update_user(
+        self,
+        db_session: Session,  # pyright:ignore
+        test_client: TestClient,
+        user_factory,
+        user_id,
+        status_code,
+    ):
+        user_factory()
+        user_info = {"email": "update_email@example.com"}
+
+        response = test_client.put(f"api/user/{user_id}", json=user_info)
+
+        assert response.status_code == status_code

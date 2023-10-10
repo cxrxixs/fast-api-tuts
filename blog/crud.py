@@ -1,5 +1,4 @@
 from fastapi import HTTPException, status
-from fastapi.encoders import jsonable_encoder
 from psycopg2.errors import ForeignKeyViolation, UniqueViolation
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -42,27 +41,25 @@ def create_blog(db: Session, blog: schemas.BlogCreate, author_id: int) -> models
 
 
 def update_blog(
-    db: Session, db_obj: schemas.Blog, obj_in: schemas.BlogUpdate
-) -> models.Blog:
-    obj_data = jsonable_encoder(db_obj)
+    db: Session,
+    blog_id: int,
+    obj_in: schemas.BlogUpdate,
+):
+    blog = db.query(models.Blog).filter_by(id=blog_id).first()
+    if not blog:
+        return None
 
-    if isinstance(obj_in, dict):
-        update_data = obj_in
+    obj_data = obj_in.model_dump(exclude_unset=True)
 
-    else:
-        update_data = obj_in.model_dump(exclude_unset=True)
-        for field in obj_data:
-            if field in update_data:
-                setattr(db_obj, field, update_data[field])
+    for key, value in obj_data.items():
+        setattr(blog, key, value)
 
     try:
         db.commit()
-        db.refresh(db_obj)
-        return jsonable_encoder(db_obj)
+        db.refresh(blog)
+        return blog
 
     except IntegrityError as err:
-        print(err)
         db.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Something went wrong"
-        )
+        print(err)
+        raise err

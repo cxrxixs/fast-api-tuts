@@ -30,7 +30,24 @@ def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=schemas.User)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+def create_user(
+    user: schemas.UserCreate,
+    db: Session = Depends(get_db),
+):
     new_user = crud.create_user(db, user)
 
     return new_user
+
+
+@router.put("/{user_id}", response_model=schemas.User)
+def update_user(
+    user_id: int, user_in: schemas.UserUpdate, db: Session = Depends(get_db)
+):
+    updated_user = crud.update_user(db, user_id, user_in)
+    if not updated_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with id: {user_id} not found",
+        )
+
+    return updated_user

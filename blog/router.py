@@ -36,31 +36,29 @@ async def read_blog(id: int, db: Session = Depends(get_db)):
     return blog
 
 
-@router.put("/", response_model=schemas.Blog)
-async def update_blog(blog_in: schemas.BlogUpdate, db: Session = Depends(get_db)):
-    blog = crud.get_blog(db, blog_id=blog_in.id)
-    if not blog:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Blog with id: {blog_in.id} not found.",
-        )
-    updated_blog = crud.update_blog(
-        db,
-        blog,
-        blog_in,
-    )
-
-    return updated_blog
-
-
 @router.post("/", response_model=schemas.Blog)
 def create_blog(
-    blog: schemas.BlogCreate, author_id: int, db: Session = Depends(get_db)
+    blog: schemas.BlogCreate,
+    author_id: int,
+    db: Session = Depends(get_db),
 ):
     blog = crud.create_blog(db, blog, author_id)
-    if not blog:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Something went wrong"
-        )
 
     return blog
+
+
+@router.put("/{blog_id}", response_model=schemas.Blog)
+async def update_blog(
+    blog_id: int,
+    blog_in: schemas.BlogUpdate,
+    db: Session = Depends(get_db),
+):
+    # blog = crud.get_blog(db, blog_id=blog_in.id)
+    updated_blog = crud.update_blog(db, blog_id, blog_in)
+    if not updated_blog:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Blog with id: {blog_id} not found.",
+        )
+
+    return updated_blog

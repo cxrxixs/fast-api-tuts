@@ -16,19 +16,14 @@ class BlogCreate(BlogBase):
 
 
 class BlogUpdate(BlogBase):
-    id: int
     title: str | None = None
     body: str | None = None
-    author_id: int | None = None
-
-    class Config:
-        from_attributes = True
 
 
 class Blog(BlogBase):
     id: int
-    author_id: int
-    author: UserAsAuthor
+    author_id: int | None = None
+    author: UserAsAuthor | None = None
 
     class Config:
         from_attributes = True

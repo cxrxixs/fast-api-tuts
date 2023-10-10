@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 
+from blog.tests.factories import BlogFactory
 from config import settings
 from database import Base
 from main import app
@@ -13,7 +14,7 @@ from user.tests.factories import UserFactory
 
 # region Register factory
 register(UserFactory)
-
+register(BlogFactory)
 # endregion
 
 
@@ -74,3 +75,8 @@ def create_and_delete_user(db_session):
 
     # Delete the user after the test
     db_session.query(models.User).filter_by(id=new_user.id).delete()
+
+
+@pytest.fixture
+def mock_db_session(mocker):
+    return mocker.patch("database.SessionLocal")
