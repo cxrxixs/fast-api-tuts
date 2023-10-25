@@ -38,7 +38,9 @@ async def index():
 @app.get("/blog", response_class=HTMLResponse, tags=["HOME"])
 async def blog_main(request: Request, db: Session = Depends(get_db)):
     blogs = blog_crud.get_blogs(db, skip=0, limit=10)
-    return templates.TemplateResponse("blog.html", {"request": request, "blogs": blogs})
+    return templates.TemplateResponse(
+        "blog.html", {"request": request, "blogs": blogs}
+    )
 
 
 if __name__ == "__main__":

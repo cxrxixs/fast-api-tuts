@@ -36,7 +36,9 @@ def test_create_blog_http_exception(db_session: Session, mocker):
         ),
     )
 
-    new_blog = schemas.BlogCreate(title="Test blog title", body="Test blog body")
+    new_blog = schemas.BlogCreate(
+        title="Test blog title", body="Test blog body"
+    )
 
     with pytest.raises(HTTPException) as exc_info:
         crud.create_blog(db_session, new_blog, author_id=1)
@@ -47,7 +49,9 @@ def test_create_blog_http_exception(db_session: Session, mocker):
 def test_create_blog_foreignkey_violation(db_session: Session):
     INVALID_AUTHOR_ID = 9999
     with pytest.raises(HTTPException) as exc_info:
-        new_blog = schemas.BlogCreate(title="Test blog title", body="Test blog boy")
+        new_blog = schemas.BlogCreate(
+            title="Test blog title", body="Test blog boy"
+        )
         crud.create_blog(db_session, new_blog, author_id=INVALID_AUTHOR_ID)
 
     assert exc_info.value.status_code == 400

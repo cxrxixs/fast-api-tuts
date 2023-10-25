@@ -64,7 +64,9 @@ def create_user_fixture(db_session):
 @pytest.fixture(scope="function")
 def create_and_delete_user(db_session):
     # Create a user
-    new_user = models.User(email="test@mail.com", hashed_password="testpassword")
+    new_user = models.User(
+        email="test@mail.com", hashed_password="testpassword"
+    )
 
     db_session.add(new_user)
     db_session.commit()

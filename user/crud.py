@@ -20,7 +20,9 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 def create_user(db: Session, user: schemas.UserCreate):
     fake_hashed_password = user.password + "notreallyhashed"
-    new_user = models.User(email=user.email, hashed_password=fake_hashed_password)
+    new_user = models.User(
+        email=user.email, hashed_password=fake_hashed_password
+    )
     db.add(new_user)
     try:
         db.commit()
@@ -29,7 +31,8 @@ def create_user(db: Session, user: schemas.UserCreate):
     except IntegrityError as err:
         if isinstance(err.orig, UniqueViolation):
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail="User already exists"
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="User already exists",
             )
         else:
             print(err)

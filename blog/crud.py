@@ -14,8 +14,12 @@ def get_blogs(db: Session, skip: int = 0, limit: int = 10) -> list[models.Blog]:
     return db.query(models.Blog).offset(skip).limit(limit).all()
 
 
-def create_blog(db: Session, blog: schemas.BlogCreate, author_id: int) -> models.Blog:
-    new_blog = models.Blog(**blog.model_dump(exclude_unset=True), author_id=author_id)
+def create_blog(
+    db: Session, blog: schemas.BlogCreate, author_id: int
+) -> models.Blog:
+    new_blog = models.Blog(
+        **blog.model_dump(exclude_unset=True), author_id=author_id
+    )
     db.add(new_blog)
 
     try:
