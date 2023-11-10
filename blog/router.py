@@ -15,7 +15,9 @@ async def index() -> str:
 
 @router.get("/all", response_model=list[schemas.Blog])
 async def read_blogs(
-    skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db),
 ):
     blogs = crud.get_blogs(db, skip=skip, limit=limit)
     if not blogs:
@@ -27,7 +29,10 @@ async def read_blogs(
 
 
 @router.get("/{id}", response_model=schemas.Blog)
-async def read_blog(id: int, db: Session = Depends(get_db)):
+async def read_blog(
+    id: int,
+    db: Session = Depends(get_db),
+):
     blog = crud.get_blog(db, blog_id=id)
     if not blog:
         raise HTTPException(

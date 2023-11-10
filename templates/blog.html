@@ -1,20 +1,30 @@
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div>
-      <h1>Welcome to blog</h1>
-    </div>
-    <div>
-      <ul>
-        {% for blog in blogs %}
-          <li style="list-style-type: none;">ID: <span style="font-weight: bolder ;">{{ blog.id }}</span> {{ blog.title }}</li>
-         <h4>Author {{ blog.author }}</h4>
-        <p>{{ blog.body }}</p>
-        {% endfor %}
-      </ul>
-    </div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="FastAPI tutorital" />
+        <meta name="keywords" cotent="fastapi,ruff" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div>
+            <h1>Welcome to blog</h1>
+        </div>
+        <div>
+            <ul>
+                {% for blog in blogs %}
+                    <li class="subject">
+                        ID: <b>{{ blog.id }}</b> {{ blog.title }}
+                    </li>
+                    <h4>Author {{ blog.author }}</h4>
+                    <p>{{ blog.body }}</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </body>
+    <style>
+      .subject {
+        list-style-type: none;
+      }
+    </style>
 </html>
